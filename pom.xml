@@ -71,8 +71,9 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/api/testproject.yaml</inputSpec>
                             <generatorName>spring</generatorName>
+                            <apiPackage>com.qe27.webapp.generated.api</apiPackage>
+                            <modelPackage>com.qe27.webapp.generated.model</modelPackage>
                             <configOptions>
-                                <sourceFolder>src/gen/java/main</sourceFolder>
                                 <interfaceOnly>true</interfaceOnly>
                                 <skipDefaultInterface>true</skipDefaultInterface>
                             </configOptions>

@@ -1,8 +1,8 @@
 package com.qe27.webapp.controller;
 
+import com.qe27.webapp.generated.api.KafkaEventApi;
+import com.qe27.webapp.generated.model.KafkaEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.openapitools.api.KafkaEventApi;
-import org.openapitools.model.KafkaEvent;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
