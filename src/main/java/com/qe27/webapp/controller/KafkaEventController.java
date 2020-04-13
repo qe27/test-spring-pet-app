@@ -1,26 +1,34 @@
 package com.qe27.webapp.controller;
 
 import com.qe27.webapp.generated.api.KafkaEventApi;
-import com.qe27.webapp.generated.model.KafkaEvent;
+import com.qe27.webapp.generated.model.KafkaUnifiedMessageModel;
+import com.qe27.webapp.service.KafkaMessageProcessor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @RestController
 public class KafkaEventController implements KafkaEventApi {
-    @Override
-    public ResponseEntity<Void> createEvent(@Valid KafkaEvent kafkaEvent) {
-        log.debug("create event called with body {}", kafkaEvent);
-        return null;
+
+    private final KafkaMessageProcessor kafkaMessageProcessor;
+
+    @Autowired
+    public KafkaEventController(KafkaMessageProcessor kafkaMessageProcessor) {
+        this.kafkaMessageProcessor = kafkaMessageProcessor;
     }
 
     @Override
-    public ResponseEntity<List<KafkaEvent>> getEvents() {
-        log.debug("get events called");
+    public ResponseEntity<Void> createEvent(@Valid KafkaUnifiedMessageModel kafkaUnifiedMessageModel) {
+        log.debug("create message called with body {}", kafkaUnifiedMessageModel);
+        if (kafkaUnifiedMessageModel.getJsonMessage() != null) {
+            kafkaMessageProcessor.postJsonMessage(kafkaUnifiedMessageModel.getJsonMessage());
+        } else if (kafkaUnifiedMessageModel.getStringMessage() != null) {
+            kafkaMessageProcessor.postStringMessage(kafkaUnifiedMessageModel.getStringMessage());
+        }
         return null;
     }
 }
