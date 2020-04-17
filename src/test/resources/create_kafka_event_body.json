@@ -1,0 +1,6 @@
+{
+  "jsonMessage": {
+    "topic": "test.app.topic",
+    "body": {"key":  "test-key", "value":  "test-value"}
+  }
+}
